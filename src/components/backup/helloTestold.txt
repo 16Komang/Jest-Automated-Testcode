@@ -1,0 +1,39 @@
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import Hello from '../helloword/Hello';
+
+global.alert = jest.fn();
+
+describe('Hello component', () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
+    test('renders Toolbar component', () => {
+        render(<Hello />);
+        const buttonElement = screen.getByText(/HelloWord/i);
+        expect(buttonElement).toBeInTheDocument();
+    });
+
+    test('calls handleHelloWorld function when button is clicked', () => {
+        render(<Hello />);
+        const buttonElement = screen.getByText(/HelloWord/i);
+        fireEvent.click(buttonElement);
+
+        expect(global.alert).toHaveBeenCalledTimes(2);
+
+        expect(global.alert).toHaveBeenNthCalledWith(1, 'Hello!');
+        expect(global.alert).toHaveBeenNthCalledWith(2, 'Goodbye!');
+    });
+
+    test('fails if handleHelloWorld function does not show correct alerts', () => {
+        render(<Hello />);
+        const buttonElement = screen.getByText(/HelloWord/i);
+        fireEvent.click(buttonElement);
+
+        expect(global.alert).toHaveBeenCalledTimes(2);
+        expect(global.alert).toHaveBeenNthCalledWith(1, 'Hello!');
+
+        expect(global.alert).toHaveBeenNthCalledWith(2, 'Goodbye!');
+    });
+});

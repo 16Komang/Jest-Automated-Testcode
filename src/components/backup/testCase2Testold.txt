@@ -1,0 +1,44 @@
+import { render, screen } from '@testing-library/react';
+import user from '@testing-library/user-event';
+import TestCase2 from '../form/TestCase2';
+
+describe('TestCase2', () => {
+  test('renders username and password inputs correctly', () => {
+    render(<TestCase2 />);
+    const usernameInput = screen.getByPlaceholderText('Username');
+    expect(usernameInput).toBeInTheDocument();
+    const passwordInput = screen.getByPlaceholderText('Password');
+    expect(passwordInput).toBeInTheDocument();
+  });
+
+  test('login fails with incorrect credentials', async () => {
+    const originalAlert = window.alert;
+    window.alert = jest.fn();
+
+    render(<TestCase2 />);
+    const usernameInput = screen.getByPlaceholderText('Username');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const loginButton = screen.getByRole('button', { name: 'Login' });
+
+    await user.type(usernameInput, 'wrongusername');
+    await user.type(passwordInput, 'wrongpassword');
+    await user.click(loginButton);
+
+    expect(screen.queryByText('Halo, wrongusername!')).not.toBeInTheDocument();
+    expect(window.alert).toHaveBeenCalledWith('Login gagal.');
+    window.alert = originalAlert;
+  });
+
+  test('login succeeds with correct credentials', async () => {
+    render(<TestCase2 />);
+    const usernameInput = screen.getByPlaceholderText('Username');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const loginButton = screen.getByRole('button', { name: 'Login' });
+
+    await user.type(usernameInput, 'admin');
+    await user.type(passwordInput, 'password');
+    await user.click(loginButton);
+
+    expect(screen.getByText('Halo, admin!')).toBeInTheDocument();
+  });
+});

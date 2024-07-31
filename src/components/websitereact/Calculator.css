@@ -1,0 +1,30 @@
+.calculator-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.keypad button {
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.keypad button:hover {
+  background-color: #555;
+}
+
+#clear {
+  grid-column: span 2;
+}
+
+#result {
+  grid-column: span 2;
+}

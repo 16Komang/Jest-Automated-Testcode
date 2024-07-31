@@ -1,0 +1,44 @@
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.navbar {
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.navbar-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navbar-item {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar-link:hover {
+  color:  #82caff;
+}
+.logout-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout-button:hover {
+  background-color: darkred;
+}
